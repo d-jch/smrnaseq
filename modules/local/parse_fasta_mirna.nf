@@ -30,7 +30,8 @@ process PARSE_FASTA_MIRNA {
     sed '#^[^>]#s#[^AUGCaugc]#N#g' \${FASTA}_html_cleaned.fa > \${FASTA}_parsed.fa
 
     sed -i 's#\s.*##' \${FASTA}_parsed.fa
-    seqkit grep -r --pattern \".*${filter_species}-.*\" \${FASTA}_parsed.fa > \${FASTA}_sps.fa
+    cat ${FASTA}_parsed.fa > \${FASTA}_sps.fa
+    # seqkit grep -r --pattern \".*${filter_species}-.*\" \${FASTA}_parsed.fa > \${FASTA}_sps.fa
     seqkit seq --rna2dna \${FASTA}_sps.fa > \${FASTA}_igenome.fa
 
     cat <<-END_VERSIONS > versions.yml
